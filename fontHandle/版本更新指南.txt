@@ -1,0 +1,7 @@
+1.去官网下载最新的包，将里面的icons.json拉到目录下，替换目录下的icons.json
+
+2.根据官方的release，将新增的icon更新到newTypeSrc.json文件
+
+3.将新增的icon的label以及对应的中文描述，添加到en.json文件中
+
+4.执行 node ./fontHandle/fontTransfer.js
