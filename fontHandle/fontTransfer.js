@@ -8,39 +8,65 @@ const arr = {
     categories: [],
     fonts:{}
 }
+const expandLabelData = {
+    'journal-whills': ["怀尔日志","惠尔斯志事","怀尔斯日志"]
+} 
 
+const expandIcon = {
+    "wolai": {
+        "search": {
+          "terms": []
+        },
+        "styles": [
+          "brands"
+        ],
+        "unicode": "f400",
+        "label": "Wolai",
+        "free": [
+          "brands"
+        ]
+      }
+}
 for(var key in iconTypeSrc) {
     let _obj = {
         name: key,
         cnName: iconTypeSrc[key].name,
         fonts: [],
     }
+    const fonts = iconTypeSrc[key].fonts || []
+    if (key == 'Brands') {
+        fonts.push()
+    }
     iconTypeSrc[key].fonts.map(bean => {
-        if (data[bean]) {
-            data[bean].free.map(type => {
+        let currentBean = data[bean] || expandIcon[bean]
+        if (currentBean) {
+            currentBean.free.map(type => {
                 let classType = type === 'solid' ? 'fas' : type === 'regular' ? 'far' : 'fab' 
-                let unicode = data[bean].unicode;
+                let unicode = currentBean.unicode;
                 let _name = '&#x' + unicode.toUpperCase() + ';'
                 let newKey = `${classType}-${bean}-${_name}`
                 if (_obj.fonts.includes(newKey)) {
                     return
                 }
-                let keyword = data[bean].search.terms || []
-                let label = data[bean].label
-                // if (enData[data[bean].label]) {
-                //     keyword.unshift(enData[data[bean].label])
+                let keyword = currentBean.search.terms || []
+                let label = currentBean.label
+                // if (enData[currentBean.label]) {
+                //     keyword.unshift(enData[currentBean.label])
                 // }
-                if (!enData[data[bean].label]) {
-                    console.log('unmatch font: ', data[bean].label, '---', enData[data[bean].label])
+                if (expandLabelData[bean]) {
+                    keyword = keyword.concat(expandLabelData[bean])
+                }
+                if (!enData[currentBean.label]) {
+                    console.log('unmatch font: ', currentBean.label, '---', enData[currentBean.label])
                 } else {
                     !keyword.includes(label)&&(keyword.push(label))
-                    label = enData[data[bean].label];
+                    label = enData[currentBean.label];
                 }
                 let obj = {
                     name: bean,
                     label: label,
-                    unicode: data[bean].unicode,
-                    searchText: data[bean].search.terms.join(','),
+                    unicode: currentBean.unicode,
+                    searchText: currentBean.search.terms.join(','),
                     keyword: keyword,
                 }
                 _obj.fonts.push(newKey)
