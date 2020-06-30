@@ -33,10 +33,6 @@ for(var key in iconTypeSrc) {
         cnName: iconTypeSrc[key].name,
         fonts: [],
     }
-    const fonts = iconTypeSrc[key].fonts || []
-    if (key == 'Brands') {
-        fonts.push()
-    }
     iconTypeSrc[key].fonts.map(bean => {
         let currentBean = data[bean] || expandIcon[bean]
         if (currentBean) {
