@@ -4,6 +4,7 @@ const data = require('./icons.json')
 const iconTypeSrc = require('./newTypeSrc.json')
 const enData = require('./en.json')
 const path = require('path')
+const cnTag = require('./tagCn.json')
 const arr = {
     categories: [],
     fonts:{}
@@ -52,6 +53,10 @@ for(var key in iconTypeSrc) {
                 if (expandLabelData[bean]) {
                     keyword = keyword.concat(expandLabelData[bean])
                 }
+                if (cnTag[bean]) {
+                    keyword = keyword.concat(cnTag[bean])
+                }
+                keyword = [...new Set(keyword)]
                 if (!enData[currentBean.label]) {
                     console.log('unmatch font: ', currentBean.label, '---', enData[currentBean.label])
                 } else {
