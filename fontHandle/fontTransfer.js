@@ -4,7 +4,7 @@ const data = require('./icons.json')
 const iconTypeSrc = require('./newTypeSrc.json')
 const enData = require('./en.json')
 const path = require('path')
-const cnTag = require('./tagCn.json')
+const cnTag = require('./tags.json')
 const arr = {
     categories: [],
     fonts:{}
@@ -28,12 +28,14 @@ const expandIcon = {
         ]
       }
 }
+let counts = new Set()
 for(var key in iconTypeSrc) {
     let _obj = {
         name: key,
         cnName: iconTypeSrc[key].name,
         fonts: [],
     }
+    // counts = counts + iconTypeSrc[key].fonts.length
     iconTypeSrc[key].fonts.map(bean => {
         let currentBean = data[bean] || expandIcon[bean]
         if (currentBean) {
@@ -42,6 +44,7 @@ for(var key in iconTypeSrc) {
                 let unicode = currentBean.unicode;
                 let _name = '&#x' + unicode.toUpperCase() + ';'
                 let newKey = `${classType}-${bean}-${_name}`
+                counts.add(newKey)
                 if (_obj.fonts.includes(newKey)) {
                     return
                 }
@@ -79,6 +82,7 @@ for(var key in iconTypeSrc) {
     })
     arr.categories.push(_obj)
 }
+console.log(counts.size)
 
 // for(var key in data) {
 //     (!arr[data[key].free && data[key].free[0]]) && (arr[data[key].free && data[key].free[0]] = [])
