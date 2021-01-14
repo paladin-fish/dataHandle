@@ -3,8 +3,12 @@ const fs = require('fs')
 const data = require('./icons.json')
 const iconTypeSrc = require('./newTypeSrc.json')
 const enData = require('./en.json')
+const enPyData = require('./enPy.json')
+const enPyFLData = require('./enPyFL.json')
 const path = require('path')
-const cnTag = require('./tags.json')
+const cnTag = require('./tagCn.json')
+const cnPyTag = require('./tagCnpinyin.json')
+const cnPyFirstLetterTag = require('./tagCnpinyinFirstLetter.json')
 const arr = {
     categories: [],
     fonts:{}
@@ -59,13 +63,33 @@ for(var key in iconTypeSrc) {
                 if (cnTag[bean]) {
                     keyword = keyword.concat(cnTag[bean])
                 }
-                keyword = [...new Set(keyword)]
+                // if (cnPyTag[bean]) {
+                //     let array = cnPyTag[bean]
+                //     array = array.map(item => item.replace(/ /g, ''))
+                //     keyword = keyword.concat(array)
+                // }
+                // if (cnPyFirstLetterTag[bean]) {
+                //     let array = cnPyFirstLetterTag[bean]
+                //     array = array.map(item => item.replace(/ /g, ''))
+                //     keyword = keyword.concat(array)
+                // }
+                if (enPyData[currentBean.label]) {
+                    let _text = enPyData[currentBean.label]
+                    _text = _text.replace(/ /g, '')
+                    keyword.push(_text)
+                }
+                if (enPyFLData[currentBean.label]) {
+                    let _text = enPyFLData[currentBean.label]
+                    _text = _text.replace(/ /g, '')
+                    keyword.push(_text)
+                }
                 if (!enData[currentBean.label]) {
                     console.log('unmatch font: ', currentBean.label, '---', enData[currentBean.label])
                 } else {
                     !keyword.includes(label)&&(keyword.push(label))
                     label = enData[currentBean.label];
                 }
+                keyword = [...new Set(keyword)]
                 let obj = {
                     name: bean,
                     label: label,
