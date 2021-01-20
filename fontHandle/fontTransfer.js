@@ -63,16 +63,16 @@ for(var key in iconTypeSrc) {
                 if (cnTag[bean]) {
                     keyword = keyword.concat(cnTag[bean])
                 }
-                // if (cnPyTag[bean]) {
-                //     let array = cnPyTag[bean]
-                //     array = array.map(item => item.replace(/ /g, ''))
-                //     keyword = keyword.concat(array)
-                // }
-                // if (cnPyFirstLetterTag[bean]) {
-                //     let array = cnPyFirstLetterTag[bean]
-                //     array = array.map(item => item.replace(/ /g, ''))
-                //     keyword = keyword.concat(array)
-                // }
+                if (cnPyTag[bean]) {
+                    let array = cnPyTag[bean]
+                    array = array.map(item => item.replace(/ /g, ''))
+                    keyword = keyword.concat(array)
+                }
+                if (cnPyFirstLetterTag[bean]) {
+                    let array = cnPyFirstLetterTag[bean]
+                    array = array.map(item => item.replace(/ /g, ''))
+                    keyword = keyword.concat(array)
+                }
                 if (enPyData[currentBean.label]) {
                     let _text = enPyData[currentBean.label]
                     _text = _text.replace(/ /g, '')
