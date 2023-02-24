@@ -2,6 +2,12 @@
 
 2.根据官方的release，将新增的icon更新到newTypeSrc.json文件
 
-3.将新增的icon的label以及对应的中文描述，添加到en.json文件中
+3.到getFontEn路径下，执行node getEn.js，获取最新的描述翻译文件，将新增的icon的label以及对应的中文描述，添加到cn.json文件中，添加完，再执行一遍node getEn.js，更新拼音文件
 
-4.执行 node ./fontHandle/fontTransfer.js
+4.到getFontTag路径下，执行 node getTag.js 获取最新关键词翻译文件，将新增icon的search.terms里的搜索关键词添加到tagCn.json，添加完，再执行一遍node getTag.js，更新拼音文件
+
+5.执行 node ./fontHandle/fontTransfer.js
+
+6.将fontList.js里的内容，拷贝到wolai项目下的fontAwesomeList.tsx文件
+
+7.将fa-brands-400/fa-regular-400/fa-solid-900等字体文件放到/packages/wolai/assets/font下

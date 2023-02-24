@@ -1,14 +1,18 @@
 const fs = require('fs')
 
+// 原始icon数据
 const data = require('./icons.json')
+// 分类信息
 const iconTypeSrc = require('./newTypeSrc.json')
-const enData = require('./en.json')
-const enPyData = require('./enPy.json')
-const enPyFLData = require('./enPyFL.json')
+// 图标描述的翻译/拼音/拼音首字母
+const enData = require('./getFontEn/cn.json')
+const enPyData = require('./getFontEn/cnPY.json')
+const enPyFLData = require('./getFontEn/cnPYFL.json')
 const path = require('path')
-const cnTag = require('./tagCn.json')
-const cnPyTag = require('./tagCnpinyin.json')
-const cnPyFirstLetterTag = require('./tagCnpinyinFirstLetter.json')
+// 图片关键词的翻译/拼音/拼音首字母
+const cnTag = require('./getFontTag/tagCn.json')
+const cnPyTag = require('./getFontTag/tagCnPY.json')
+const cnPyFirstLetterTag = require('./getFontTag/tagCnPYFL.json')
 const arr = {
     categories: [],
     fonts:{}
@@ -34,6 +38,10 @@ const expandIcon = {
 }
 let counts = new Set()
 for(var key in iconTypeSrc) {
+    if (iconTypeSrc[key].hidden) {
+        console.log('iconTypeSrc[key].hidden=-', iconTypeSrc[key].hidden, key)
+        continue
+    }
     let _obj = {
         name: key,
         cnName: iconTypeSrc[key].name,
